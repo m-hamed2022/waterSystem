@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 665px;
+            height: 665px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "Egypt", "label": "Egypt", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Aswan", "label": "Aswan", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Alexandria", "label": "Alexandria", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Ismailia", "label": "Ismailia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Luxor", "label": "Luxor", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Suez", "label": "Suez", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Damietta", "label": "Damietta", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Dakahlia", "label": "Dakahlia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Sharkia", "label": "Sharkia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Behaira", "label": "Behaira", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Cairo", "label": "Cairo", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Kafr el sheikh", "label": "Kafr el sheikh", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Qena", "label": "Qena", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Monoufia", "label": "Monoufia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Gharbia", "label": "Gharbia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Quliubiya", "label": "Quliubiya", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Port said", "label": "Port said", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Giza", "label": "Giza", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Minya", "label": "Minya", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Beni sweif", "label": "Beni sweif", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Fayoum", "label": "Fayoum", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Assuit", "label": "Assuit", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Sohag", "label": "Sohag", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Wheat :Aswan", "label": "Wheat :Aswan", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Sustains Alfalfa :Alexandria", "label": "Sustains Alfalfa :Alexandria", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Forestation Alfalfa :Ismailia", "label": "Forestation Alfalfa :Ismailia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "chickpeas :Luxor", "label": "chickpeas :Luxor", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Garlic :Suez", "label": "Garlic :Suez", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "lentils :Damietta", "label": "lentils :Damietta", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "lentils :Dakahlia", "label": "lentils :Dakahlia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Lfax :Sharkia", "label": "Lfax :Sharkia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Lfax :Behaira", "label": "Lfax :Behaira", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Others :Cairo", "label": "Others :Cairo", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "sugar Beet :Kafr el sheikh", "label": "sugar Beet :Kafr el sheikh", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Medical and Aromatic plants :Qena", "label": "Medical and Aromatic plants :Qena", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Forestation Alfalfa :Monoufia", "label": "Forestation Alfalfa :Monoufia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Fully grown Onions :Gharbia", "label": "Fully grown Onions :Gharbia", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Forestation Alfalfa :Quliubiya", "label": "Forestation Alfalfa :Quliubiya", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "vegetables :Port said", "label": "vegetables :Port said", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Others :Giza", "label": "Others :Giza", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "chickpeas :Minya", "label": "chickpeas :Minya", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "chickpeas :Beni sweif", "label": "chickpeas :Beni sweif", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Forestation Alfalfa :Fayoum", "label": "Forestation Alfalfa :Fayoum", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "vegetables :Assuit", "label": "vegetables :Assuit", "shape": "dot", "size": 10}, {"font": {"color": "white"}, "id": "Fenugreek :Sohag", "label": "Fenugreek :Sohag", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "Egypt", "to": "Aswan", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Alexandria", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Ismailia", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Luxor", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Suez", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Damietta", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Dakahlia", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Sharkia", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Behaira", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Cairo", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Kafr el sheikh", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Qena", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Monoufia", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Gharbia", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Quliubiya", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Port said", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Giza", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Minya", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Beni sweif", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Fayoum", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Assuit", "weight": 1}, {"arrows": "to", "from": "Egypt", "to": "Sohag", "weight": 1}, {"arrows": "to", "from": "Aswan", "to": "Wheat :Aswan", "weight": 1}, {"arrows": "to", "from": "Alexandria", "to": "Sustains Alfalfa :Alexandria", "weight": 1}, {"arrows": "to", "from": "Ismailia", "to": "Forestation Alfalfa :Ismailia", "weight": 1}, {"arrows": "to", "from": "Luxor", "to": "chickpeas :Luxor", "weight": 1}, {"arrows": "to", "from": "Suez", "to": "Garlic :Suez", "weight": 1}, {"arrows": "to", "from": "Damietta", "to": "lentils :Damietta", "weight": 1}, {"arrows": "to", "from": "Dakahlia", "to": "lentils :Dakahlia", "weight": 1}, {"arrows": "to", "from": "Sharkia", "to": "Lfax :Sharkia", "weight": 1}, {"arrows": "to", "from": "Behaira", "to": "Lfax :Behaira", "weight": 1}, {"arrows": "to", "from": "Cairo", "to": "Others :Cairo", "weight": 1}, {"arrows": "to", "from": "Kafr el sheikh", "to": "sugar Beet :Kafr el sheikh", "weight": 1}, {"arrows": "to", "from": "Qena", "to": "Medical and Aromatic plants :Qena", "weight": 1}, {"arrows": "to", "from": "Monoufia", "to": "Forestation Alfalfa :Monoufia", "weight": 1}, {"arrows": "to", "from": "Gharbia", "to": "Fully grown Onions :Gharbia", "weight": 1}, {"arrows": "to", "from": "Quliubiya", "to": "Forestation Alfalfa :Quliubiya", "weight": 1}, {"arrows": "to", "from": "Port said", "to": "vegetables :Port said", "weight": 1}, {"arrows": "to", "from": "Giza", "to": "Others :Giza", "weight": 1}, {"arrows": "to", "from": "Minya", "to": "chickpeas :Minya", "weight": 1}, {"arrows": "to", "from": "Beni sweif", "to": "chickpeas :Beni sweif", "weight": 1}, {"arrows": "to", "from": "Fayoum", "to": "Forestation Alfalfa :Fayoum", "weight": 1}, {"arrows": "to", "from": "Assuit", "to": "vegetables :Assuit", "weight": 1}, {"arrows": "to", "from": "Sohag", "to": "Fenugreek :Sohag", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.33,
+            "damping": 0.95,
+            "nodeDistance": 420,
+            "springConstant": 0.1,
+            "springLength": 110
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
