@@ -1,7 +1,7 @@
 seaborn
 streamlit
 numpy
-pandas
+pandas==1.5.3
 matplotlib
 plotly
 numerize
